@@ -1,9 +1,32 @@
 'use client'
 
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {Dialog, DialogPanel} from '@headlessui/react'
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import { ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon } from '@heroicons/react/24/outline'
+
+
+const testimonials = [
+    {
+        quote: "“Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis.”",
+        name: "Judith Black",
+        title: "CEO of Workcation",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    },
+    {
+        quote: "“Doloremque necessitatibus itaque, quasi provident explicabo vel earum hic! Eius laboriosam officia veritatis quam magnam.”",
+        name: "Alex Johnson",
+        title: "CTO of InnovateX",
+        avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+    },
+    {
+        quote: "“Animi tempore sequi, laudantium possimus deleniti, consectetur aspernatur nisi quos, iure molestias! Nostrum, aperiam eveniet?”",
+        name: "Maria Lopez",
+        title: "Founder of Creativo",
+        avatar: "https://randomuser.me/api/portraits/women/44.jpg"
+    },
+];
+
 const navigation = [
 
     { name: 'Benefits', href: '#' },
@@ -39,6 +62,17 @@ const features = [
 
 export default function Example() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+        }, 3000); // Change every 3 seconds
+
+        return () => clearInterval(interval); // Cleanup on unmount
+    }, []);
+
+    const { quote, name, title, avatar } = testimonials[index];
 
     return (
         <>
@@ -232,6 +266,40 @@ export default function Example() {
                 </div>
             </div>
 
+            <section className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
+                <div
+                    className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-indigo-100),white)] opacity-20"/>
+                <div
+                    className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl ring-1 shadow-indigo-600/10 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"/>
+
+                <div className="mx-auto max-w-2xl lg:max-w-4xl text-center">
+                    <img
+                        alt="Logo"
+                        src="https://tailwindcss.com/plus-assets/img/logos/workcation-logo-indigo-600.svg"
+                        className="mx-auto h-12"
+                    />
+                    <figure className="mt-10 transition-opacity duration-1000 ease-in-out">
+                        <blockquote className="text-xl font-semibold text-gray-900 sm:text-2xl">
+                            <p>{quote}</p>
+                        </blockquote>
+                        <figcaption className="mt-10">
+                            <img
+                                alt=""
+                                src={avatar}
+                                className="mx-auto size-10 rounded-full"
+                            />
+                            <div className="mt-4 flex items-center justify-center space-x-3 text-base">
+                                <div className="font-semibold text-gray-900">{name}</div>
+                                <svg width={3} height={3} viewBox="0 0 2 2" aria-hidden="true"
+                                     className="fill-gray-900">
+                                    <circle r={1} cx={1} cy={1}/>
+                                </svg>
+                                <div className="text-gray-600">{title}</div>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
         </>
 
     )
