@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Admin dashboard",
+    "description": "Manage users, monitor transactions, and control token settings—all from a clean, intuitive admin interface. Track performance in real-time and make updates.",
+    "icon": "CloudArrowUpIcon"
+  },
+  {
+    "name": "Security",
+    "description": "Each payment uses a unique, auto-expiring token valid for only 15 minutes—preventing reuse, hijacking, or delayed attempts. It adds an extra layer of security for every transaction.",
+    "icon": "LockClosedIcon"
+  },
+  {
+    "name": "Frequent updates",
+    "description": "TokenPay evolves with your needs—regular updates bring new features, performance enhancements, and security patches to keep everything running smoothly and safely.",
+    "icon": "ArrowPathIcon"
+  },
+  {
+    "name": "Authentication options",
+    "description": "Let users log in or pay using their TokenPay credentials. Whether it’s one-click access or seamless checkout, TokenPay simplifies both identity and transaction flows.",
+    "icon": "FingerPrintIcon"
+  }
+]
