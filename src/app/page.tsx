@@ -81,6 +81,7 @@ const features = [
 ]
 
 export default function Example() {
+
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [index, setIndex] = useState(0);
     const [agreed, setAgreed] = useState(false)

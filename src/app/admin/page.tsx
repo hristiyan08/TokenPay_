@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import addCard from "@/app/admin/add-card/addcard";
+import { useState, useRef, useEffect } from 'react'
+
+import generateToken from "@/app/admin/generate-token/generateToken";
 import {
     Dialog,
     DialogPanel,
@@ -24,25 +25,28 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 
-const products = [
-    { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-    { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-    { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-    { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-    { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
-]
-const callsToAction = [
-    { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-    { name: 'Contact sales', href: '#', icon: PhoneIcon },
-]
+
 
 export default function Example() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-    const [haveCard, setHaveCard] = useState(true);
+    const [haveCard, setHaveCard] = useState(false);
+    const [isTokenGenerated, setIsTokenGenerated] = useState(false)
+    const timerRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const cardStatus = localStorage.getItem('haveCard');
+        if (cardStatus === 'true') {
+            setHaveCard(true);
+        }
+    }, []);
+    const name = localStorage.getItem('cardName');
+    const num = localStorage.getItem('cardNumber');
+    const valid = localStorage.getItem('validThru');
+
+
     return (
         <>
 
-            <header className="bg-white">
+            <header className="bg-gray-50">
 
                 <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
 
@@ -62,55 +66,10 @@ export default function Example() {
                             <Bars3Icon aria-hidden="true" className="size-6"/>
                         </button>
                     </div>
-                    <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-                        <Popover className="relative">
-                            <PopoverButton className="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900">
-                                Card Operations
-                                <ChevronDownIcon aria-hidden="true" className="size-5 flex-none text-gray-400"/>
-                            </PopoverButton>
-
-                            <PopoverPanel
-                                transition
-                                className="absolute top-full -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
-                            >
-                                <div className="p-4">
-                                    {products.map((item) => (
-                                        <div
-                                            key={item.name}
-                                            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50"
-                                        >
-                                            <div
-                                                className="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                                                <item.icon aria-hidden="true"
-                                                           className="size-6 text-gray-600 group-hover:text-indigo-600"/>
-                                            </div>
-                                            <div className="flex-auto">
-                                                <a href={item.href} className="block font-semibold text-gray-900">
-                                                    {item.name}
-                                                    <span className="absolute inset-0"/>
-                                                </a>
-                                                <p className="mt-1 text-gray-600">{item.description}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                                    {callsToAction.map((item) => (
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
-                                            className="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100"
-                                        >
-                                            <item.icon aria-hidden="true" className="size-5 flex-none text-gray-400"/>
-                                            {item.name}
-                                        </a>
-                                    ))}
-                                </div>
-                            </PopoverPanel>
-                        </Popover>
 
 
-                    </PopoverGroup>
+
+
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                         <a href="#" className="text-sm/6 font-semibold text-gray-900">
                             Account Details <span aria-hidden="true">&rarr;</span>
@@ -138,26 +97,7 @@ export default function Example() {
                         <div className="mt-6 flow-root">
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
-                                    <Disclosure as="div" className="-mx-3">
-                                        <DisclosureButton
-                                            className="group flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
-                                            Card Operations
-                                            <ChevronDownIcon aria-hidden="true"
-                                                             className="size-5 flex-none group-data-open:rotate-180"/>
-                                        </DisclosureButton>
-                                        <DisclosurePanel className="mt-2 space-y-2">
-                                            {[...products, ...callsToAction].map((item) => (
-                                                <DisclosureButton
-                                                    key={item.name}
-                                                    as="a"
-                                                    href={item.href}
-                                                    className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50"
-                                                >
-                                                    {item.name}
-                                                </DisclosureButton>
-                                            ))}
-                                        </DisclosurePanel>
-                                    </Disclosure>
+
                                 </div>
                                 <div className="py-6">
                                     <a
@@ -174,9 +114,9 @@ export default function Example() {
             </header>
             <div className="bg-gray-50 py-24 sm:py-32">
                 <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-                    <h2 className="text-center text-base/7 font-semibold text-indigo-600">TokenPay</h2>
-                    <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl">
-                        Welcome Back!
+
+                    <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-bold tracking-tight text-balance text-gray-950 sm:text-5xl">
+                        Welcome to TokenPay Dashboard!
                     </p>
                     <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
                         <div className="relative lg:row-span-2">
@@ -197,8 +137,8 @@ export default function Example() {
                                         className={`w-40 text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none focus:ring-4
           ${haveCard
                                             ? 'bg-gray-500 dark:bg-gray-600 cursor-not-allowed'
-                                            : 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'}`}
-                                        onClick={() => addCard()}
+                                            : 'bg-blue-700 hover:bg-blue-800 cursor-pointer focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'}`}
+                                        onClick={() => window.location.href='admin/add-card'}
                                         disabled={haveCard}
                                     >
                                         Add bank card
@@ -224,7 +164,7 @@ export default function Example() {
                                                                 Name
                                                             </p>
                                                             <p className="font-medium tracking-widest">
-                                                                Hristiyan Yordanov
+                                                                {name}
                                                             </p>
                                                         </div>
                                                         <img className="w-14 h-14"
@@ -235,7 +175,7 @@ export default function Example() {
                                                             Card Number
                                                         </p>
                                                         <p className="font-medium tracking-more-wider">
-                                                            4642 3489 9867 7632
+                                                            {num}
                                                         </p>
                                                     </div>
                                                     <div className="pt-6 pr-6">
@@ -246,7 +186,7 @@ export default function Example() {
                                                                     Expiry
                                                                 </p>
                                                                 <p className="font-medium tracking-wider text-sm">
-                                                                    03/25
+                                                                    {valid}
                                                                 </p>
                                                             </div>
 
@@ -255,7 +195,7 @@ export default function Example() {
                                                                     CVV
                                                                 </p>
                                                                 <p className="font-bold tracking-more-wider text-sm">
-                                                                    ···
+                                                                    ...
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -337,18 +277,52 @@ export default function Example() {
                             <div
                                 className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                                    <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Performance</p>
+                                    <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Generate a new payment token</p>
                                     <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit maiores impedit.
+                                       Click the button to generate a new 15 minutes valid payment token.
                                     </p>
                                 </div>
                                 <div
                                     className="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
-                                    <img
-                                        className="w-full max-lg:max-w-xs"
-                                        src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-performance.png"
-                                        alt=""
-                                    />
+                                    {!isTokenGenerated ? <button
+                                        type="button"
+                                        className={`w-40 text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none focus:ring-4
+          ${haveCard
+                                            ? 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                                            : 'bg-gray-500 dark:bg-gray-600 cursor-not-allowed'}`}
+                                        onClick={() => generateToken(setIsTokenGenerated, timerRef)}
+                                        disabled={!haveCard}
+                                    >
+                                        Generate a new token
+                                    </button> :
+                                        <div className="flex flex-col justify-center text-center gap-5">
+                                            <h1 ref={timerRef} className="text-indigo-600 text-xl font-bold" id="timer">15:00</h1>
+                                            <input
+                                                id="token"
+                                                name="token"
+                                                type="text"
+                                                required
+                                                autoComplete="email"
+                                                className=" block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                                value="3e2shffdgiihesfpjsifdknxfgkghiosfghiouq7)4adtsdfgjosfdgjodfnfikdsfjojdgfsojgfdojdgojdgogfjo"
+                                                readOnly
+                                            />
+
+                                            <button
+                                                type="button"
+                                                className={`w-50 text-white text-center  font-medium rounded-lg text-sm px-5 py-2.5  focus:outline-none focus:ring-4
+          ${haveCard
+                                                    ? 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                                                    : 'bg-gray-500 dark:bg-gray-600 cursor-not-allowed'}`}
+
+                                                disabled={!haveCard}
+                                            >
+                                                Copy
+                                            </button>
+                                        </div>
+
+                                    }
+
                                 </div>
                             </div>
                             <div
@@ -359,18 +333,13 @@ export default function Example() {
                             <div
                                 className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
                                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                                    <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Security</p>
+                                <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Balance</p>
                                     <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                        Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper
-                                        morbi.
+                                       Here you can check the balance of your bank card.
                                     </p>
                                 </div>
-                                <div className="@container flex flex-1 items-center max-lg:py-6 lg:pb-2">
-                                    <img
-                                        className="h-[min(152px,40cqw)] object-cover"
-                                        src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-security.png"
-                                        alt=""
-                                    />
+                                <div className="@container  max-lg:py-6 lg:pb-2">
+                                    <h1 className="text-center my-20 font-bold text-3xl">125.83 BGN</h1>
                                 </div>
                             </div>
                             <div
@@ -383,11 +352,10 @@ export default function Example() {
                                 className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
                                 <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
                                     <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
-                                    Powerful APIs
+                                    Your transactions
                                     </p>
                                     <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                        Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget sem sodales
-                                        gravida.
+                                       Here you can view the history of your transactions.
                                     </p>
                                 </div>
                                 <div className="relative min-h-[30rem] w-full grow">
@@ -395,14 +363,12 @@ export default function Example() {
                                         className="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-gray-900 shadow-2xl">
                                         <div className="flex bg-gray-800/40 ring-1 ring-white/5">
                                             <div className="-mb-px flex text-sm/6 font-medium text-gray-400">
-                                                <div
-                                                    className="border-r border-b border-r-white/10 border-b-white/20 bg-white/5 px-4 py-2 text-white">
-                                                    NotificationSetting.jsx
-                                                </div>
-                                                <div className="border-r border-gray-600/10 px-4 py-2">App.jsx</div>
+
+                                                <div className="border-r border-gray-600/10 px-4 py-2">Transactions</div>
                                             </div>
                                         </div>
-                                        <div className="px-6 pt-6 pb-14">{/* Your code example */}</div>
+                                        <div className="px-6 pt-6 pb-14 text-white"></div>
+
                                     </div>
                                 </div>
                             </div>
