@@ -11,19 +11,19 @@ import { Field, Label, Switch } from '@headlessui/react'
 
 const testimonials = [
     {
-        quote: "“Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis.”",
+        quote: "“\"TokenPay has truly revolutionized how I manage my digital assets. The transaction speed, coupled with their advanced security measures, gives me full confidence every time I use the platform. ”",
         name: "Judith Black",
         title: "CEO of Workcation",
         avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
     },
     {
-        quote: "“Doloremque necessitatibus itaque, quasi provident explicabo vel earum hic! Eius laboriosam officia veritatis quam magnam.”",
+        quote: "“Been using TokenPay for a few months now, and honestly, it’s been super smooth. No random freezes or hidden fees. Everything just works. If you’re into crypto and want something reliable, TokenPay’s where it’s at!”",
         name: "Alex Johnson",
         title: "CTO of InnovateX",
         avatar: "https://randomuser.me/api/portraits/men/32.jpg"
     },
     {
-        quote: "“Animi tempore sequi, laudantium possimus deleniti, consectetur aspernatur nisi quos, iure molestias! Nostrum, aperiam eveniet?”",
+        quote: "“TokenPay offers solid transaction speeds and security, which I appreciate. However, I’d love to see a few more integration options with popular wallets. Overall, it's a reliable platform that's clearly improving over time.”",
         name: "Maria Lopez",
         title: "Founder of Creativo",
         avatar: "https://randomuser.me/api/portraits/women/44.jpg"

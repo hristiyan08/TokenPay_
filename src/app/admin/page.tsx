@@ -37,11 +37,12 @@ export default function Example() {
         if (cardStatus === 'true') {
             setHaveCard(true);
         }
-    }, []);
+    }, []
+
+    );
     const name = localStorage.getItem('cardName');
     const num = localStorage.getItem('cardNumber');
     const valid = localStorage.getItem('validThru');
-
 
     return (
         <>
