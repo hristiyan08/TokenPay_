@@ -11,7 +11,7 @@ import { Field, Label, Switch } from '@headlessui/react'
 
 const testimonials = [
     {
-        quote: "“\"TokenPay has truly revolutionized how I manage my digital assets. The transaction speed, coupled with their advanced security measures, gives me full confidence every time I use the platform. ”",
+        quote: "“TokenPay has truly revolutionized how I manage my digital assets. The transaction speed, coupled with their advanced security measures, gives me full confidence every time I use the platform. ”",
         name: "Judith Black",
         title: "CEO of Workcation",
         avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
