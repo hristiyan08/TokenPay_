@@ -3,25 +3,7 @@ import React, { useState } from "react";
 
 const Page = () => {
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); // Спира презареждането на страницата
 
-        const form = event.currentTarget;
-        const cardNumber = (form.elements.namedItem('card_num') as HTMLInputElement).value;
-        const cardholderName = (form.elements.namedItem('cardholder_name') as HTMLInputElement).value;
-        const validThru = (form.elements.namedItem('valid_thru') as HTMLInputElement).value;
-        const cvv = (form.elements.namedItem('cvv') as HTMLInputElement).value;
-
-       localStorage.setItem('cardName', cardholderName);
-       localStorage.setItem('cardNumber', cardNumber);
-       localStorage.setItem('validThru', validThru);
-       localStorage.setItem('cvv', cvv);
-
-        localStorage.setItem('haveCard', 'true');
-        alert('Card saved successfully! 🎉');
-
-        window.location.href = '/admin';
-    };
 
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -32,7 +14,7 @@ const Page = () => {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form className="space-y-6" id="add-card" onSubmit={handleSubmit}>
+                <form className="space-y-6" id="add-card" >
                     <div>
                         <label htmlFor="card_num" className="block text-sm font-medium text-gray-900">
                             Card number

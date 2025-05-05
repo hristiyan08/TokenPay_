@@ -33,17 +33,27 @@ export default function Example() {
     const [isTokenGenerated, setIsTokenGenerated] = useState(false)
     const timerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        const cardStatus = localStorage.getItem('haveCard');
-        if (cardStatus === 'true') {
-            setHaveCard(true);
-        }
-    }, []
+            const cardStatus = localStorage.getItem('haveCard');
+            if (cardStatus === 'true') {
+                setHaveCard(true);
+            }
+        }, []
 
     );
     const name = localStorage.getItem('cardName');
     const num = localStorage.getItem('cardNumber');
     const valid = localStorage.getItem('validThru');
 
+    const openCardWindow = () => {
+        const newWindow = window.open(
+            'admin/add-card',
+            'AddCardWindow',
+            'width=500,height=700,resizable=no'
+        )
+        if (newWindow) {
+            newWindow.focus()
+        }
+    }
     return (
         <>
 
@@ -134,12 +144,13 @@ export default function Example() {
                                 </div>
                                 <div className="text-center mt-5">
                                     <button
+
                                         type="button"
                                         className={`w-40 text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none focus:ring-4
           ${haveCard
                                             ? 'bg-gray-500 dark:bg-gray-600 cursor-not-allowed'
                                             : 'bg-blue-700 hover:bg-blue-800 cursor-pointer focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'}`}
-                                        onClick={() => window.location.href='admin/add-card'}
+                                        onClick={openCardWindow}
                                         disabled={haveCard}
                                     >
                                         Add bank card
@@ -280,22 +291,22 @@ export default function Example() {
                                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
                                     <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Generate a new payment token</p>
                                     <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                       Click the button to generate a new 15 minutes valid payment token.
+                                        Click the button to generate a new 15 minutes valid payment token.
                                     </p>
                                 </div>
                                 <div
                                     className="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
                                     {!isTokenGenerated ? <button
-                                        type="button"
-                                        className={`w-40 text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none focus:ring-4
+                                            type="button"
+                                            className={`w-40 text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none focus:ring-4
           ${haveCard
-                                            ? 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-                                            : 'bg-gray-500 dark:bg-gray-600 cursor-not-allowed'}`}
-                                        onClick={() => generateToken(setIsTokenGenerated, timerRef)}
-                                        disabled={!haveCard}
-                                    >
-                                        Generate a new token
-                                    </button> :
+                                                ? 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                                                : 'bg-gray-500 dark:bg-gray-600 cursor-not-allowed'}`}
+                                            onClick={() => generateToken(setIsTokenGenerated, timerRef)}
+                                            disabled={!haveCard}
+                                        >
+                                            Generate a new token
+                                        </button> :
                                         <div className="flex flex-col justify-center text-center gap-5">
                                             <h1 ref={timerRef} className="text-indigo-600 text-xl font-bold" id="timer">15:00</h1>
                                             <input
@@ -334,9 +345,9 @@ export default function Example() {
                             <div
                                 className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
                                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                                <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Balance</p>
+                                    <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Balance</p>
                                     <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                       Here you can check the balance of your bank card.
+                                        Here you can check the balance of your bank card.
                                     </p>
                                 </div>
                                 <div className="@container  max-lg:py-6 lg:pb-2">
@@ -353,10 +364,10 @@ export default function Example() {
                                 className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
                                 <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
                                     <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
-                                    Your transactions
+                                        Your transactions
                                     </p>
                                     <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                       Here you can view the history of your transactions.
+                                        Here you can view the history of your transactions.
                                     </p>
                                 </div>
                                 <div className="relative min-h-[30rem] w-full grow">
