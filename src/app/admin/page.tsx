@@ -40,9 +40,7 @@ export default function Example() {
         }, []
 
     );
-    const name = localStorage.getItem('cardName');
-    const num = localStorage.getItem('cardNumber');
-    const valid = localStorage.getItem('validThru');
+
 
     const openCardWindow = () => {
         const newWindow = window.open(
