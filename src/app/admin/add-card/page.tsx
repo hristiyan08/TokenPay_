@@ -2,8 +2,21 @@
 import React, { useState } from "react";
 
 const Page = () => {
+    // State for form inputs
+    const [cardNum, setCardNum] = useState("");
+    const [cardholderName, setCardholderName] = useState("");
+    const [validThru, setValidThru] = useState("");
+    const [cvv, setCvv] = useState("");
 
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
 
+        // You can transfer the data to another file, e.g., a function call or API request.
+        console.log("Card Data Submitted:", { cardNum, cardholderName, validThru, cvv });
+
+        // Example: You can pass the data to the Supabase client or another function here.
+        // createClient().from('cards').upsert({ cardNum, cardholderName, validThru, cvv });
+    };
 
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -14,7 +27,8 @@ const Page = () => {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form className="space-y-6" id="add-card" >
+                <form className="space-y-6" id="add-card" onSubmit={handleSubmit}>
+                    {/* Card Number */}
                     <div>
                         <label htmlFor="card_num" className="block text-sm font-medium text-gray-900">
                             Card number
@@ -24,6 +38,8 @@ const Page = () => {
                                 type="text"
                                 name="card_num"
                                 id="card_num"
+                                value={cardNum}
+                                onChange={(e) => setCardNum(e.target.value)}
                                 onInput={formatCardNumber}
                                 maxLength={19}
                                 required
@@ -32,6 +48,7 @@ const Page = () => {
                         </div>
                     </div>
 
+                    {/* Cardholder Name */}
                     <div>
                         <label htmlFor="cardholder_name" className="block text-sm font-medium text-gray-900">
                             Cardholder name
@@ -41,6 +58,8 @@ const Page = () => {
                                 type="text"
                                 name="cardholder_name"
                                 id="cardholder_name"
+                                value={cardholderName}
+                                onChange={(e) => setCardholderName(e.target.value)}
                                 onInput={validateCardholderName}
                                 required
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
@@ -48,6 +67,7 @@ const Page = () => {
                         </div>
                     </div>
 
+                    {/* Valid Thru */}
                     <div>
                         <label htmlFor="valid_thru" className="block text-sm font-medium text-gray-900">
                             Valid thru:
@@ -57,6 +77,8 @@ const Page = () => {
                                 type="text"
                                 name="valid_thru"
                                 id="valid_thru"
+                                value={validThru}
+                                onChange={(e) => setValidThru(e.target.value)}
                                 onInput={formatValidThru}
                                 maxLength={7}
                                 required
@@ -65,6 +87,7 @@ const Page = () => {
                         </div>
                     </div>
 
+                    {/* CVV */}
                     <div>
                         <label htmlFor="cvv" className="block text-sm font-medium text-gray-900">
                             CVV:
@@ -74,6 +97,8 @@ const Page = () => {
                                 type="text"
                                 name="cvv"
                                 id="cvv"
+                                value={cvv}
+                                onChange={(e) => setCvv(e.target.value)}
                                 onInput={formatCardNumber}
                                 maxLength={3}
                                 required
@@ -95,6 +120,7 @@ const Page = () => {
         </div>
     );
 };
+
 
 // Helper functions for formatting card inputs
 function formatCardNumber(event: React.FormEvent<HTMLInputElement>) {
